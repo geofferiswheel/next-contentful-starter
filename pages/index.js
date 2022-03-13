@@ -1,12 +1,13 @@
-import Head from 'next/head'
+import Head from "next/head";
 
-import { fetchEntries } from '@utils/contentfulPosts'
+import { fetchEntries } from "@utils/contentfulPosts";
 
-import Header from '@components/Header'
-import Footer from '@components/Footer'
-import Post from '@components/Post'
+import Header from "@components/Header";
+import Footer from "@components/Footer";
+import Post from "@components/Post";
 
 export default function Home({ posts }) {
+  console.log(posts);
   return (
     <div className="container">
       <Head>
@@ -18,7 +19,14 @@ export default function Home({ posts }) {
         <Header />
         <div className="posts">
           {posts.map((p) => {
-            return <Post key={p.date} date={p.date} image={p.image.fields} title={p.title} />
+            return (
+              <Post
+                key={p.date}
+                date={p.date}
+                image={p.image.fields}
+                title={p.title}
+              />
+            );
           })}
         </div>
       </main>
@@ -53,8 +61,9 @@ export default function Home({ posts }) {
         body {
           padding: 0;
           margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-            Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+            sans-serif;
         }
 
         * {
@@ -62,18 +71,19 @@ export default function Home({ posts }) {
         }
       `}</style>
     </div>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const res = await fetchEntries()
+  const res = await fetchEntries();
   const posts = await res.map((p) => {
-    return p.fields
-  })
+    return p.fields;
+  });
+  console.log(posts);
 
   return {
     props: {
       posts,
     },
-  }
+  };
 }
