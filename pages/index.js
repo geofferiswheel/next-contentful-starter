@@ -79,7 +79,6 @@ export async function getStaticProps() {
   const posts = await res.map((p) => {
     return p.fields;
   });
-  console.log(posts);
 
   return {
     props: {
